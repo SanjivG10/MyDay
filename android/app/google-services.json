@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "749914036258",
+    "firebase_url": "https://myday-da0ad.firebaseio.com",
+    "project_id": "myday-da0ad",
+    "storage_bucket": "myday-da0ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749914036258:android:d9b0da8b56e63a36",
+        "android_client_info": {
+          "package_name": "com.myday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749914036258-1k6el7m6ept0pcp0otioafh1q63ulit4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYIZpSHpagSRqFybTSVcXZaW7USQeAZEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749914036258-1k6el7m6ept0pcp0otioafh1q63ulit4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
