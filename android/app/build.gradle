@@ -188,13 +188,17 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-google-signin')
+    implementation project(':react-native-image-picker')
     implementation project(':react-native-firebase')
 
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:16.1.0"
     implementation "com.google.firebase:firebase-core:16.0.9"
-
-
+    implementation "com.google.firebase:firebase-auth:17.0.0"
+    implementation "com.google.firebase:firebase-storage:17.0.0"
+    implementation "com.google.firebase:firebase-database:17.0.0"
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -207,6 +211,7 @@ dependencies {
     } else {
       implementation jscFlavor
     }
+
 }
 
 // Run this once to be able to run the application with BUCK
