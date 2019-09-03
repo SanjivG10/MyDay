@@ -1,58 +1,101 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
+import { Container,Tab, Tabs,Fab,Icon} from 'native-base';
+import { createStackNavigator, createAppContainer } from "react-navigation";
+import firebase from 'react-native-firebase';
 
 
+import FriendsTab from  './friends'
+import TrendingTab from './trending'
+import AddPost from './AddPost'
 
-const cards = [
+class Home extends Component {
+
+  constructor(props)
   {
-    text: 'Sanjiv Gautam',
-    name: 'Dhulikhel',
-    image: require('./image1.jpg'),
-  },
-  {
-    text: 'Indira Gautam',
-    name: 'Nepal',
-    image: require('./image1.jpg'),
-  },
-  {
-    text: 'Sandhya Gautam',
-    name: 'Banepa',
-    image: require('./image1.jpg'),
+    super(props); 
+    this.state = {
+      active: false
+    };
   }
-];
 
-export default class DemoPhotoScreen extends Component {
+
+  static navigationOptions = {
+    title: 'MyDay',
+    headerLeft: null
+  };
+
+  componentDidMount(){
+    this.checkSignIn(); 
+  }
+
+
+
+  checkSignIn()
+  {
+    firebase.auth().onAuthStateChanged((user)=>{
+      if (user)
+        {
+          this.props.navigation.navigate('home')
+        }
+      else 
+      {
+        this.props.navigation.navigate('login')
+      }
+    })
+  }
+
+  openAddPost()
+  {
+    this.props.navigation.navigate('addPost')
+  }
+
+  
+
+
   render() {
     return (
-      <Container>
-        <Header />
-        <View>
-          <DeckSwiper
-            dataSource={cards}
-            renderItem={item =>
-              <Card >
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={item.image} />
-                    <Body>
-                      <Text>{item.text}</Text>
-                      <Text note>NativeBase</Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem cardBody>
-                  <Image style={{ height: 300, flex: 1 }} source={item.image} />
-                </CardItem>
-                <CardItem>
-                  <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                  <Text>{item.name}</Text>
-                </CardItem>
-              </Card>
-            }
-          />
-        </View>
+      <Container style={{flex:1}}>
+        <Tabs tabBarUnderlineStyle= {{ backgroundColor: '#3b5998' }} locked>
+          <Tab heading="Friends" tabStyle={{backgroundColor: 'white'}}  >
+            <FriendsTab />
+          </Tab>
+          <Tab heading="Trending" tabStyle={{backgroundColor: 'white'}}>
+            <TrendingTab />
+          </Tab>
+        </Tabs>
+        <Fab
+            active={this.state.active}
+            direction="up"
+            style={{ backgroundColor: '#5067FF' }}
+            position="bottomRight"
+            onPress={() => 
+              {
+                this.setState({ active: !this.state.active })
+                this.openAddPost(); 
+              }}>
+            <Icon type= 'FontAwesome' name="plus" />
+          </Fab>
+
       </Container>
     );
   }
 }
+
+const HomeNavigator = createStackNavigator({
+  home:{
+    screen: Home, 
+    navigationOptions: {
+      header: null,
+      headerMode: null,
+    }
+  },
+  addPost: {
+    screen: AddPost, 
+    navigationOptions: {
+      header: null,
+      headerMode: null
+    }
+  }
+});
+
+export default createAppContainer(HomeNavigator)

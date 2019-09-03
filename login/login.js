@@ -4,6 +4,7 @@ import { GoogleSigninButton } from 'react-native-google-signin';
 import  {FaceBookLoginHandler} from  './facebook_login'
 import {GoogleLoginHandler} from './google_login'
 import firebase from 'react-native-firebase';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 const  styles = {
   facebookLoginStyle:{
@@ -15,8 +16,15 @@ const  styles = {
   }
 }
 
-export default class Login extends Component {
 
+const resetAction = StackActions.reset({
+  index: 0, 
+  actions: [
+    NavigationActions.navigate({ routeName: 'home' }),
+  ],
+});
+
+export default class Login extends Component {
 
   state ={
     error: ''
@@ -26,12 +34,13 @@ export default class Login extends Component {
     this.checkSignIn(); 
   }
 
+
   checkSignIn()
   {
     firebase.auth().onAuthStateChanged((user)=>{
       if (user)
         {
-          this.props.navigation.navigate('home')
+          this.props.navigation.dispatch(resetAction);
         }
       else 
       {

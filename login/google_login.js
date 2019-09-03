@@ -4,9 +4,7 @@ import firebase from 'react-native-firebase'
 export async function GoogleLoginHandler() {
   try {
 
-    await GoogleSignin.configure({
-      webClientId:'749914036258-1k6el7m6ept0pcp0otioafh1q63ulit4.apps.googleusercontent.com'
-    });
+    await GoogleSignin.configure();
 
     const data = await GoogleSignin.signIn();
 
