@@ -8,9 +8,7 @@ const LoginNavigator = createStackNavigator({
   home: {
       screen: Home, 
       navigationOptions: {
-        headerLeft: null,
-        headerMode: null,
-        title: 'MyDay'
+        header: null
       }
     },
   login: Login
@@ -18,7 +16,5 @@ const LoginNavigator = createStackNavigator({
 {
   initialRouteName: "home"
 });
-
-
 
 export default createAppContainer(LoginNavigator);

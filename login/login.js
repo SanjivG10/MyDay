@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Card, CardItem, Body, Text, Icon , Button} from 'native-base';
-import { GoogleSigninButton } from 'react-native-google-signin';
+import { Container,Text, Icon , Button} from 'native-base';
 import  {FaceBookLoginHandler} from  './facebook_login'
 import {GoogleLoginHandler} from './google_login'
 import firebase from 'react-native-firebase';
@@ -25,6 +24,10 @@ const resetAction = StackActions.reset({
 });
 
 export default class Login extends Component {
+
+  static navigationOptions = {
+    header: null
+  }
 
   state ={
     error: ''
@@ -55,9 +58,10 @@ export default class Login extends Component {
         headerStyle: {
             backgroundColor: '#f4511e',
         },
+        headerLeft: null,
         headerTintColor: '#fff',
         headerTitleStyle: {
-        fontWeight: 'bold',
+        fontWeight: 'bold'
     }
   };
 

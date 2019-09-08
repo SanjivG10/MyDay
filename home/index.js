@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import { Container,Tab, Tabs,Fab,Icon} from 'native-base';
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import { Container,Tab, Tabs,Fab,Icon,Text} from 'native-base';
+import { createStackNavigator, createAppContainer,StackActions,NavigationActions} from "react-navigation";
 import firebase from 'react-native-firebase';
 
 
 import FriendsTab from  './friends'
 import TrendingTab from './trending'
 import AddPost from './AddPost'
+
+
+const resetAction = StackActions.reset({
+  index: 0, 
+  actions: [
+    NavigationActions.navigate({ routeName: 'login' }),
+  ],
+});
 
 class Home extends Component {
 
@@ -21,14 +29,19 @@ class Home extends Component {
 
   static navigationOptions = {
     title: 'MyDay',
-    headerLeft: null
-  };
+    headerStyle: {
+      backgroundColor: '#292b2c',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold', 
+      color: '#FFF'
+    },
+    };
 
   componentDidMount(){
     this.checkSignIn(); 
   }
-
-
 
   checkSignIn()
   {
@@ -39,7 +52,7 @@ class Home extends Component {
         }
       else 
       {
-        this.props.navigation.navigate('login')
+        this.props.navigation.dispatch(resetAction);
       }
     })
   }
@@ -55,18 +68,18 @@ class Home extends Component {
   render() {
     return (
       <Container style={{flex:1}}>
-        <Tabs tabBarUnderlineStyle= {{ backgroundColor: '#3b5998' }} locked>
-          <Tab heading="Friends" tabStyle={{backgroundColor: 'white'}}  >
+        <Tabs tabBarUnderlineStyle= {{ backgroundColor: '#fff' }} locked>
+          <Tab heading="Friends" tabStyle={{backgroundColor: '#292b2c'}} activeTabStyle={{backgroundColor: '#292b2c'}} activeTextStyle={{color: '#fff', fontWeight: 'normal'}}   >
             <FriendsTab />
           </Tab>
-          <Tab heading="Trending" tabStyle={{backgroundColor: 'white'}}>
+          <Tab heading="Trending" tabStyle={{backgroundColor: '#292b2c'}} activeTabStyle={{backgroundColor: '#292b2c'}} activeTextStyle={{color: '#fff', fontWeight: 'normal'}}>
             <TrendingTab />
           </Tab>
         </Tabs>
         <Fab
             active={this.state.active}
             direction="up"
-            style={{ backgroundColor: '#5067FF' }}
+            style={{ backgroundColor: '#292b2c' }}
             position="bottomRight"
             onPress={() => 
               {
@@ -75,26 +88,28 @@ class Home extends Component {
               }}>
             <Icon type= 'FontAwesome' name="plus" />
           </Fab>
-
       </Container>
     );
   }
 }
 
 const HomeNavigator = createStackNavigator({
-  home:{
-    screen: Home, 
-    navigationOptions: {
-      header: null,
-      headerMode: null,
-    }
-  },
-  addPost: {
-    screen: AddPost, 
-    navigationOptions: {
-      header: null,
-      headerMode: null
-    }
+  home:Home,
+  addPost:  {
+    screen: AddPost,
+    navigationOptions : {
+          title: 'AddPost',
+          headerStyle: {
+            backgroundColor: '#008080',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          },
+          headerRight: (
+            <Icon type= 'FontAwesome' name="check" style={{color: '#fff', marginRight:10}} />
+          ),
+        }
   }
 });
 

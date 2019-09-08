@@ -27,17 +27,22 @@ export default class AddedImageFeatures extends React.Component {
 
             },
             {
-                features:'Edit',
+                features:'Filters',
                 source: require('./../icons/edit.png'), 
                 id: 'edit'
             }
         ]
     }
 
-    _onPressItem = (id)=>{
-        if (id=="edit")
+    _onPressItem = (item)=>{
+        if (item.id=="edit")
         {
-            this.props.navigation.push('editImageFilters'); 
+            this.props.navigation.push('editImageFilters', {image:this.props.image}); 
+        }
+
+        else if (item.id=="emoji")
+        {
+            this.props.openEmoji()
         }
     }
 
@@ -45,12 +50,12 @@ export default class AddedImageFeatures extends React.Component {
         {
             return (
                 <Card>
-                    <TouchableOpacity onPress=  { ()=> this. _onPressItem(item.id) }   >
+                    <TouchableOpacity onPress=  { ()=> this. _onPressItem(item) }   >
                         <Text style={{alignSelf: 'center', margin:2 }}>{item.features}</Text>
                         
                         <CardItem>
                             <Body>
-                                <Image  source= {item.source}  style={{height: 80, width: 80, height:80}} />
+                                <Image  source= {item.source}  style={{height: 64, width: 64}} />
                             </Body>
                         </CardItem>
 
